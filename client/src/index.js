@@ -9,9 +9,10 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import { HelmetProvider } from "react-helmet-async";
 import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
+import store from "./store";
+import {Provider} from "react-redux"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,10 +25,8 @@ const router = createBrowserRouter(
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <HelmetProvider>
+    <Provider store={store}>
       <RouterProvider router={router} />
-    </HelmetProvider>
-  </React.StrictMode>
+    </Provider>
 );
 
