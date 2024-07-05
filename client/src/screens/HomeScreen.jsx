@@ -6,11 +6,11 @@ import Loader from "../components/Loader";
 
 const HomeScreen = () => {
   
-  const {data:products, isLoading, error} = useGetProductsQuery()
+  const {data:products, isLoading, isError} = useGetProductsQuery()
 
   return (
     <>
-    {isLoading ? (<Loader/>) : error ? (<div>{error?.data.message || error.error}</div>) : (<>
+    {isLoading ? (<Loader/>) : isError ? (<div>{isError?.data.message || isError.error}</div>) : (<>
       <h1>Products</h1>
       <Row>
         {products.map((product) => {
