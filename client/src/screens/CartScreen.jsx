@@ -82,7 +82,7 @@ const CartScreen = () => {
             <ListGroup variant='flush'>
               <ListGroup.Item>
                 <h2>
-                  Total Items: <span style={{marginRight: "5px"}}>{cartItems.reduce((acc, item) => acc + item.qty, 0)}</span> 
+                  Total Items: <span style={{marginRight: "5px"}}>{cartItems.reduce((acc, item) => acc + Number(item.qty), 0)}</span> 
                  Items
                 </h2>
                 <b>Items Price: <span>$ {cartItems
