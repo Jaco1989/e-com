@@ -19,10 +19,11 @@ import { addToCart } from "../slices/cartSlice";
 
 export default function ProductScreen() {
   const { id: productId } = useParams();
+  const {data:product, isLoading, isError} = useGetProductDetailsQuery(productId)
   const navigate = useNavigate()
   const [qty, setQty] = useState(1)
   const dispatch = useDispatch()
-  const {data:product, isLoading, isError} = useGetProductDetailsQuery(productId)
+  
   
   const addToCartBtn = () => {
     dispatch(addToCart({ ...product, qty }));
