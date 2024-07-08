@@ -26,6 +26,7 @@ export default function ProductScreen() {
   
   const addToCartBtn = () => {
     dispatch(addToCart({ ...product, qty }));
+    navigate("/cart")
   }
  
 
