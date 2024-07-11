@@ -18,6 +18,7 @@ app.use(cors());
 
 app.use("/api/products", productRoutes);
 
+
 app.use(notFound);
 app.use(errorHandler);
 
