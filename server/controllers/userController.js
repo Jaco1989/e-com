@@ -9,11 +9,12 @@ const authUser = asyncHandler(async (req, res) => {
     const user = await User.findOne({email})
 
     if(user && (await user.matchPassword(password))){
+
       const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET, {expiresIn: "30d"})
 
       res.cookie("jwt", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV !== "development" ,
+        secure: process.env.NODE_ENV !== "development",
         sameSite: "strict",
         magAge: 30 * 24 * 60 * 60 * 1000 // 30days
       })
