@@ -19,11 +19,11 @@ export const protect = asyncHandler( async(req, res, next) => {
         }
         else{
             res.status(401)
-            throw new Error("Error, no matching authentication!")
+            throw new Error("Error, no matching authentication token!")
         }
 })
 
-const admin = (req, res, next) => {
+export const admin = (req, res, next) => {
     if(req.user && req.user.isAdmin){
         next()
     }
