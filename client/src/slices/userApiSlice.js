@@ -12,9 +12,17 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         keepUnusedDataFor: 5,
         providesTags: ["users"]
       }),
-    })
+      logout: builder.mutation({
+        query: () => ({
+          url: `${USERS_URL}/logout`,
+          method: 'POST',
+        }),
+      }),
+    }),
+    
 })
 
 export const {
-    useLoginMutation} 
+    useLoginMutation,
+    useLogoutMutation} 
 = usersApiSlice
