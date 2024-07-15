@@ -35,6 +35,13 @@ const initialState = localStorage.getItem('cart')
         state.paymentMethod = action.payload;
         localStorage.setItem('cart', JSON.stringify(state));
       },
+      clearCartItems: (state, action) => {
+        state.cartItems = [];
+        localStorage.setItem('cart', JSON.stringify(state));
+      },
+      // NOTE: here we need to reset state for when a user logs out so the next
+      // user doesn't inherit the previous users cart and shipping
+      resetCart: (state) => (state = initialState),
     },
   });
   
@@ -42,7 +49,9 @@ const initialState = localStorage.getItem('cart')
     addToCart,
     removeFromCart,
     saveShippingAddress,
-    savePaymentMethod
+    savePaymentMethod,
+    clearCartItems,
+    resetCart
   } = cartSlice.actions;
   
   export default cartSlice.reducer;
