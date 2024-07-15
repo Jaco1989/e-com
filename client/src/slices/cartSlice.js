@@ -21,7 +21,6 @@ const initialState = localStorage.getItem('cart')
         } else {
           state.cartItems = [...state.cartItems, item];
         }
-
         return updateCart(state, item);
       },
       removeFromCart: (state, action) => {
