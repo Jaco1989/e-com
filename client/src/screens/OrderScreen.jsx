@@ -77,13 +77,6 @@ const OrderScreen = () => {
           return orderID;
         });
     }
-
-    async function onApproveTest() {
-    await payOrder({ orderId, details: { payer: {} } });
-    refetch();
-
-    toast.success('Order is paid');
-  }
   
   return (
     isLoading ? (<><Loader/></>) : isError ? (<><Message variant={"danger"}/></>) : (
@@ -188,12 +181,6 @@ const OrderScreen = () => {
                             ) : (
                               <div>
                                 <div>
-                                <Button
-                        style={{ marginBottom: '10px' }}
-                        onClick={onApproveTest}
-                      >
-                        Test Pay Order
-                      </Button>
                                 <PayPalButtons
                                   createOrder={createOrder}
                                   onApprove={onApprove}
