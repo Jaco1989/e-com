@@ -48,22 +48,6 @@ const OrderScreen = () => {
       }
     }, [errorPayPal, loadingPayPal, order, paypal, paypalDispatch]);
 
-    function onApprove(data, actions) {
-      return actions.order.capture().then(async function (details) {
-        try {
-          await payOrder({ orderId, details });
-          refetch();
-          toast.success('Order is paid');
-        } catch (err) {
-          toast.error(err?.data?.message || err.error);
-        }
-      });
-    }
-  
-    function onError(err) {
-      toast.error(err.message);
-    }
-  
     function createOrder(data, actions) {
       return actions.order
         .create({
@@ -77,6 +61,26 @@ const OrderScreen = () => {
           return orderID;
         });
     }
+
+    function onError(err) {
+      toast.error(err.message);
+    }
+    
+    function onApprove(data, actions) {
+      return actions.order.capture().then(async function (details) {
+        try {
+          await payOrder({ orderId, details });
+          refetch();
+          toast.success('Order is paid');
+        } catch (err) {
+          toast.error(err?.data?.message || err.error);
+        }
+      });
+    }
+  
+    
+  
+    
   
   return (
     isLoading ? (<><Loader/></>) : isError ? (<><Message variant={"danger"}/></>) : (
