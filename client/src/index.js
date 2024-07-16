@@ -64,7 +64,7 @@ root.render(
     <Provider store={store}>
       <PayPalScriptProvider deferLoading={true}>
           <RouterProvider router={router} />
-        </PayPalScriptProvider>
+      </PayPalScriptProvider>
     </Provider>
 );
 
