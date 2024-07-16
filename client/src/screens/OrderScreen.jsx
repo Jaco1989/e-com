@@ -7,13 +7,49 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import {
   useGetOrderDetailsQuery,
+  usePayOrderMutation,
+  useGetPaypalClientIdQuery
 } from '../slices/ordersApiSlice';
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 
 
 const OrderScreen = () => {
     const { id: orderId } = useParams()
     const { data: order, refetch, isLoading, isError } = 
     useGetOrderDetailsQuery(orderId);
+
+    const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
+
+    const {data: paypal, isLoading: loadingPayPal, isError: errorPayPal,
+    } = useGetPaypalClientIdQuery();
+
+    const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+
+  
+    const { userInfo } = useSelector((state) => state.auth);
+
+    useEffect(() => {
+      if (!errorPayPal && !loadingPayPal && paypal.clientId) {
+        const loadPaypalScript = async () => {
+          paypalDispatch({
+            type: 'resetOptions',
+            value: {
+              'client-id': paypal.clientId,
+              currency: 'USD',
+            },
+          });
+          paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
+        };
+        if (order && !order.isPaid) {
+          if (!window.paypal) {
+            loadPaypalScript();
+          }
+        }
+      }
+    }, [errorPayPal, loadingPayPal, order, paypal, paypalDispatch]);
+
+    
+
   return (
     isLoading ? (<><Loader/></>) : isError ? (<><Message variant={"danger"}/></>) : (
     <>
@@ -68,7 +104,6 @@ const OrderScreen = () => {
                         <h2>Order Items</h2>
                         {order.orderItems.map((item, index) => (
                             <ListGroup.Item key={index}>
-                                <Row>
                                 <Col md={1}>
                                     <Image src={item.image} alt={item.name} fluid rounded>
                                     </Image>
@@ -81,7 +116,6 @@ const OrderScreen = () => {
                                 <Col md={4}>
                                     {item.qty} x {item.price} = ${item.qty * item.price}
                                 </Col>
-                                </Row>
                             </ListGroup.Item>
                         ))}
                     </ListGroup.Item>
