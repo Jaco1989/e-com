@@ -22,6 +22,11 @@ const ProductListScreen = () => {
         </Button>
       </Col>
     </Row>
+    {isLoading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant='danger'>{error.data.message}</Message>
+      ) : (
         <Table striped bordered hover responsive className='table-sm'>
           <thead>
             <tr>
@@ -34,8 +39,35 @@ const ProductListScreen = () => {
             </tr>
           </thead>
           <tbody>
+                {products.map((product) => (
+                    <tr key={product._id}>
+                    <td>{product._id}</td>
+                    <td>{product.name}</td>
+                    <td>${product.price}</td>
+                    <td>{product.category}</td>
+                    <td>{product.brand}</td>
+                    <td>
+                    <Button
+                      as={Link}
+                      to={`/admin/product/${product._id}/edit`}
+                      variant='light'
+                      className='btn-sm mx-2'
+                    >
+                      <FaEdit />
+                    </Button>
+                    <Button
+                      variant='danger'
+                      className='btn-sm'
+                      onClick={""}
+                    >
+                      <FaTrash style={{ color: 'white' }} />
+                    </Button>
+                  </td>
+                  </tr>
+                ))}
           </tbody>
         </Table>
+    )}
       </>
   )
 }
