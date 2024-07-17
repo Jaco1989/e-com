@@ -10,6 +10,9 @@ import {
 
 const ProductListScreen = () => {
     const { data: products, isLoading, error, refetch } = useGetProductsQuery();
+
+    const deleteHandler = async (id) => {}
+    
   return (
     <>
     <Row className='align-items-center'>
@@ -58,7 +61,7 @@ const ProductListScreen = () => {
                     <Button
                       variant='danger'
                       className='btn-sm'
-                      onClick={""}
+                      onClick={() => deleteHandler(product._id)}
                     >
                       <FaTrash style={{ color: 'white' }} />
                     </Button>
