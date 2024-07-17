@@ -9,10 +9,11 @@ import {
 } from "../controllers/userController.js";
 import { protect, admin } from "../middleware/authMiddleware.js"
 
-
+// Public Routes
 router.post("/auth", authUser)
 router.post("/logout", logoutUser)
 
+// Private and Public
 router.route("/")
       .post(registerUser)
       .get(protect, admin, getUsers)
