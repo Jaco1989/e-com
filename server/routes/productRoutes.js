@@ -3,7 +3,8 @@ const router = express.Router();
 import {
   getProducts,
   getProductById,
-  createProduct
+  createProduct,
+  updateProduct,
 } from "../controllers/productController.js";
 import { protect, admin } from '../middleware/authMiddleware.js';
 
