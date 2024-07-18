@@ -1,12 +1,14 @@
 import { useGetProductsQuery } from "../slices/productsApiSlice";
+import { useParams } from 'react-router-dom';
 import { Row, Col } from "react-bootstrap";
 import Product from "../components/Product";
 import Loader from "../components/Loader";
+import Paginate from '../components/Paginate';
 
 
 const HomeScreen = () => {
-  
-  const {data, isLoading, isError} = useGetProductsQuery()
+  const { pageNumber } = useParams();
+  const {data, isLoading, isError} = useGetProductsQuery({pageNumber})
 
   return (
     <>
@@ -20,8 +22,13 @@ const HomeScreen = () => {
             </Col>
           );
         })}
-      </Row></>)}
-      
+      </Row>
+      <Paginate
+            pages={data.pages}
+            page={data.page}
+          />
+      </>
+  )}  
     </>
   );
 };
