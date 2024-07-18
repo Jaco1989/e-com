@@ -1,11 +1,12 @@
 import { Pagination } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import "../assets/styles/index.css"
 
 
 const Paginate = ({ pages, page, isAdmin = false}) => {
   return (
     pages > 1 && (
-      <Pagination>
+      <Pagination className='center-text'>
         {[...Array(pages).keys()].map((x) => (
           <LinkContainer
             key={x + 1}
