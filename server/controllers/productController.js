@@ -2,13 +2,15 @@ import asyncHandler from "../middleware/asyncHandler.js";
 import Product from "../models/productModel.js";
 
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({});
-  if (products) {
-    return res.json(products);
-  } else {
-    res.status(404);
-    throw new Error("No products under this category");
-  }
+  const pageSize = process.env.PAGINATION_LIMIT;
+  const page = Number(req.query.pageNumber) || 1;
+
+  const count = await Product.countDocuments();
+  const products = await Product.find({})
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+
+  res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
 const getProductById = asyncHandler(async (req, res) => {
