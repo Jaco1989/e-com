@@ -58,6 +58,7 @@ const ProductListScreen = () => {
         </Button>
       </Col>
     </Row>
+    
     {loadingDelete && <Loader />}
     {loadingCreate && <Loader />}
     {isLoading ? (
@@ -65,6 +66,7 @@ const ProductListScreen = () => {
       ) : IsError ? (
         <Message variant='danger'>{IsError.data.message}</Message>
       ) : (
+        <>
         <Table striped bordered hover responsive className='table-sm'>
           <thead>
             <tr>
@@ -104,12 +106,10 @@ const ProductListScreen = () => {
                   </tr>
                 ))}
           </tbody>
-        </Table>
-    )}
-    <Paginate
-            pages={data.pages}
-            page={data.page}
-          />
+        </Table> 
+        <Paginate pages={data.pages} page={data.page} isAdmin={true} />
+        </>
+          )}
       </>
   )
 }
