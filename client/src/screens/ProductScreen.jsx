@@ -1,6 +1,7 @@
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from "react";
+import Meta from "../components/Meta";
 import {
   Row,
   Col,
@@ -63,6 +64,7 @@ export default function ProductScreen() {
       </Link>
       <>
       {isLoading ? (<Loader/>) : isError ? (<div>{isError?.data.message || isError.error}</div>) : (<>
+      <Meta title={product.name}/>
         <Row>
         <Col md={5}>
           <Image src={product.image} alt={product.name} fluid />

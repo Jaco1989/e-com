@@ -9,6 +9,8 @@ const ProductCarousel = () => {
   return isLoading ? null : error ? (
     <Message variant='danger'>{error?.data?.message || error.error}</Message>
   ) : (
+    <>
+    <div>
     <Carousel pause='hover' className='bg-primary-subtle mb-4'>
       {products.map((product) => (
         <Carousel.Item key={product._id}>
@@ -23,6 +25,9 @@ const ProductCarousel = () => {
         </Carousel.Item>
       ))}
     </Carousel>
+    </div>
+    </>
+    
   );
 };
 
